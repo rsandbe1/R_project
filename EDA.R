@@ -5,7 +5,6 @@ df = read.csv('Life_Expectancy_Data.csv')
 summary(df)
 
 grouped = df %>% group_by()
-#KLjl
 
 grouped$Year = as.factor(grouped$Year)
 
