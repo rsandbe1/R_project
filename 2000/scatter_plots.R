@@ -6,7 +6,7 @@ df = read.csv('../Life_Expectancy_Data.csv')
 #Omit N/A values (necessary for regression) and filter by desired year
 df[df==0] <- NA
 all = na.omit(df)
-all = filter(all, Year == 2014)
+all = filter(all, Year == 2000)
 
 developing = filter(all, Status == 'Developing')
 
@@ -31,13 +31,6 @@ g_3 + geom_point(aes(color = Status)) + scale_color_manual(values = c('blue', 'r
   labs(x = 'HIV/AIDS (deaths/1000 people)', y = 'Life expectancy (years)')
 
 ggsave('HIV_AIDS.png', dpi=300)
-
-g_4 = ggplot(data = all, aes(x = Diphtheria, 
-                             y = Life.expectancy))
-g_4 + geom_point(aes(color = Status)) + scale_color_manual(values = c('blue', 'red')) +
-  labs(x = 'Diphtheria immunization (%)', y = 'Life expectancy (years)')
-
-ggsave('diphtheria.png', dpi=300)
 
 
 

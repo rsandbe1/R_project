@@ -4,6 +4,9 @@ library(ggplot2)
 df = read.csv('../Life_Expectancy_Data.csv')
 summary(df)
 
+df[df==0] <- NA
+df = na.omit(df)
+
 grouped = df %>% group_by()
 
 grouped$Year = as.factor(grouped$Year)
