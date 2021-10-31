@@ -7,7 +7,7 @@ df = read.csv('../../Life_Expectancy_Data.csv')
 #Omit N/A values (necessary for regression) and filter by desired year
 df[df==0] <- NA
 all = na.omit(df)
-all = filter(all, Year == 2014)
+all = filter(all, Year != 2015)
 developing = filter(all, Status == 'Developing')
 
 #Country, Status and Year were excluded because they are not numerical values (Year
@@ -15,7 +15,7 @@ developing = filter(all, Status == 'Developing')
 #Under.five.deaths and thinness.5.9.years were excluded because they are likely
 #linearly dependent on other features.
 developing = developing %>% select(-c('Country', 'Year', 'Status', 'percentage.expenditure',
-                                      'under.five.deaths','thinness..1.19.years'))
+                                    'under.five.deaths','thinness..1.19.years'))
 
 library(MASS)
 

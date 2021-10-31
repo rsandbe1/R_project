@@ -4,8 +4,10 @@ library(ggplot2)
 df = read.csv('../Life_Expectancy_Data.csv')
 
 #Omit N/A values (necessary for regression) and filter by desired year
+df[df==0] <- NA
+
 all = na.omit(df)
-all = filter(all, Year == 2014)
+all = filter(all, Year != 2015)
 
 developing = filter(all, Status == 'Developing')
 
@@ -13,8 +15,8 @@ developing = filter(all, Status == 'Developing')
 g_1 = ggplot(data = all, aes(x = Income.composition.of.resources, 
                            y = Life.expectancy))
 g_1 + geom_point(aes(color = Status)) + scale_color_manual(values = c('blue', 'red')) +
-  geom_abline(intercept = 48.474517, slope = 34.504450, color = 'red') +
-  geom_abline(intercept = 47.614113, slope = 36.285086, color = 'black') +
+  geom_abline(intercept = 51.50, slope = 9.049, color = 'red') +
+  geom_abline(intercept = 51.98, slope = 10.43, color = 'black') +
   labs(x = 'Income composition of resources', y = 'Life expectancy (years)')
 
 ggsave('income_composition_resources.png', dpi=300)

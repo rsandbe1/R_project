@@ -7,23 +7,22 @@ df = read.csv('../../Life_Expectancy_Data.csv')
 #Omit N/A values (necessary for regression) and filter by desired year
 df[df==0] <- NA
 all = na.omit(df)
-all = filter(all, Year == 2014)
-developing = filter(all, Status == 'Developing')
+all = filter(all, Year == 2000)
 
 #Country, Status and Year were excluded because they are not numerical values (Year
 #is numerical but it's the same value for all observations since we filtered by year). 
 #Under.five.deaths and thinness.5.9.years were excluded because they are likely
 #linearly dependent on other features.
-developing = developing %>% select(-c('Country', 'Year', 'Status', 'percentage.expenditure',
-                                      'under.five.deaths','thinness..1.19.years'))
+all = all %>% select(-c('Country', 'Year', 'Status', 'percentage.expenditure',
+                        'under.five.deaths','thinness..1.19.years'))
 
 library(MASS)
 
 #Empty model with only beta0 (y-intercept)
-model.empty = lm(Life.expectancy ~ 1, data = developing)
+model.empty = lm(Life.expectancy ~ 1, data = all)
 
 #Model with all variables.
-model.full = lm(Life.expectancy ~ ., data = developing)
+model.full = lm(Life.expectancy ~ ., data = all)
 scope = list(lower = formula(model.empty), upper = formula(model.full))
 
 #Stepwise regression using AIC as the criteria (the penalty k = 2).

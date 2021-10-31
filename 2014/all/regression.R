@@ -5,14 +5,15 @@ library(car)
 df = read.csv('../../Life_Expectancy_Data.csv')
 
 #Omit N/A values (necessary for regression) and filter by desired year
+df[df==0] <- NA
 all = na.omit(df)
 all = filter(all, Year == 2014)
 
 #Country, Status and Year were excluded because they are not numerical values (Year
 #is numerical but it's the same value for all observations since we filtered by year). 
 #Under.five.deaths and thinness.5.9.years were excluded because they are likely
-#linearly dependent on infant.deaths and thinness..1.19.years, respectively.
-all = all %>% select(-c('Country', 'Year', 'Status', 
+#linearly dependent on other features.
+all = all %>% select(-c('Country', 'Year', 'Status', 'percentage.expenditure',
                                       'under.five.deaths','thinness..1.19.years'))
 
 library(MASS)
@@ -30,11 +31,6 @@ forwardAIC = step(model.empty, scope, direction = "forward", k = 2)
 summary(forwardAIC)
 R_squared = summary(forwardAIC)$r.squared
 coefficients = summary(forwardAIC)$coefficients[,1]
-intercept = coefficients[1]
-income_resources = coefficients['Income.composition.of.resources']
-adult_mortality = coefficients['Adult.Mortality']
-HIV_AIDS = coefficients['HIV.AIDS']
-total_expenditure = coefficients['Total.expenditure']
 #4 plots to assess the validity of assumptions of linear regression model
 plot(forwardAIC)
 influencePlot(forwardAIC)

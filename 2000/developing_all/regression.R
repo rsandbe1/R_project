@@ -7,7 +7,7 @@ df = read.csv('../../Life_Expectancy_Data.csv')
 #Omit N/A values (necessary for regression) and filter by desired year
 df[df==0] <- NA
 all = na.omit(df)
-all = filter(all, Year == 2014)
+all = filter(all, Year == 2000)
 developing = filter(all, Status == 'Developing')
 
 #Country, Status and Year were excluded because they are not numerical values (Year
