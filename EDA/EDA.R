@@ -7,6 +7,8 @@ summary(df)
 df[df==0] <- NA
 df = na.omit(df)
 
+df = filter(df, Year != 2015)
+
 grouped = df %>% group_by()
 
 grouped$Year = as.factor(grouped$Year)
